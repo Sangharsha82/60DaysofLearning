@@ -24,38 +24,85 @@ python -m pip install --upgrade pip
 # pip install -r requirements.txt
 ```
 
-On Windows using CMD:
+# Day 2 Notes — Virtualenv, Dictionaries, and Error Handling
+
+This file contains a short summary of what was learned on Day 2: working with Python virtual environments, common dictionary operations, and basic error handling patterns.
+
+## Virtual Environments (venv)
+
+Create a new virtual environment:
+
+```powershell
+python -m venv .venv
+```
+
+Activate (PowerShell):
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+Activate (CMD):
 
 ```cmd
-webapp\Scripts\activate.bat
-python -m pip install --upgrade pip
+.\.venv\Scripts\activate.bat
 ```
 
-If you prefer to create a fresh virtual environment instead of using the included `webapp/`, run:
+Activate (Bash / WSL / macOS):
 
 ```bash
-python -m venv .venv
-.\venv\Scripts\activate
-pip install --upgrade pip
+source .venv/bin/activate
 ```
 
-## Usage
-
-Run the Day 2 script with the active virtual environment:
+Deactivate (all shells):
 
 ```bash
-python day2.py
+deactivate
 ```
 
-## Notes
+Notes:
+- Use a project-local venv (like `.venv`) to avoid committing environment files.
+- The included `webapp/` is a full virtual environment — prefer creating `.venv` instead.
 
-- The `webapp/` folder contains a full virtual environment. It's recommended to add `webapp/` to `.gitignore` to avoid committing environment-specific files.
-- If you want help turning this into a small web app or adding tests, open an issue or request changes.
+## Dictionaries (Python)
 
-## Contributing
+- Create: `d = {}` or `d = {'a': 1, 'b': 2}`
+- Access: `value = d['key']` (raises `KeyError`) or `value = d.get('key', default)`
+- Add / Update: `d['new'] = 3`
+- Remove: `d.pop('key')`, `del d['key']`
+- Iterate keys/values/items:
+  - `for k in d:`
+  - `for k, v in d.items():`
+- Useful methods: `d.keys()`, `d.values()`, `d.items()`, `d.update(other)`, `d.clear()`
+- Dictionary comprehension example: `squares = {x: x*x for x in range(6)}`
 
-Contributions are welcome. For small changes, open a pull request describing the changes.
+## Error Handling (try / except)
 
-## License
+Basic structure:
 
-This project is unlicensed. Add a license (for example, MIT) if you want to allow reuse.
+```python
+try:
+	# code that may raise
+	value = int(user_input)
+except ValueError:
+	# handle specific error
+	print('Please enter a valid integer')
+except Exception as e:
+	# catch-all (use sparingly)
+	print('Unexpected error:', e)
+else:
+	# runs if no exception
+	print('Parsed value:', value)
+finally:
+	# runs always
+	cleanup()
+```
+
+Best practices:
+- Catch specific exceptions (e.g., `ValueError`, `KeyError`) rather than a bare `except:`.
+- Use `finally` for cleanup actions that must run regardless of errors.
+- Prefer logging or re-raising when an error should bubble up.
+
+---
+
+If you'd like, I can add short example snippets in `day2.py` to demonstrate these concepts interactively.
