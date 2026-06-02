@@ -1,0 +1,27 @@
+# Ignore virtual environment folder
+webapp/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.pytest_cache/
+htmlcov/
+coverage.xml
+
+# macOS
+.DS_Store
