@@ -9,7 +9,7 @@ This repo contains Day 2 work for the "60 Days of Learning" series. It includes 
 ## Repository structure
 
 - [day2.py](day2.py) — main Day 2 script
-- [webapp/](webapp/) — local Python virtual environment and packages (do not commit this to Git)
+- [webapp/](webapp/) — local Python virtual environment and packages
 
 ## Setup
 
