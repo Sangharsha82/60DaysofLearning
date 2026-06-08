@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Jinja Filters</h2>
+
+<h3>Original</h3>
+
+{{ product.name }}
+
+<hr>
+
+<h3>Upper</h3>
+
+{{ product.name | upper }}
+
+<hr>
+
+<h3>Lower</h3>
+
+{{ product.name | lower }}
+
+<hr>
+
+<h3>Safe HTML Rendering</h3>
+
+{{ product.description | safe }}
+
+{% endblock %}

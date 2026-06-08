@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block content %}
+
+<h1>Flask + Jinja Complete Demo</h1>
+
+<hr>
+
+<h2>1. Variable Rendering</h2>
+
+<p>Name: {{ user.name }}</p>
+
+<p>Role: {{ user.role }}</p>
+
+<hr>
+
+<h2>2. Filters</h2>
+
+<p>Original: {{ user.name }}</p>
+
+<p>Uppercase: {{ user.name | upper }}</p>
+
+<p>Lowercase: {{ user.name | lower }}</p>
+
+<hr>
+
+<h2>3. Conditional Rendering</h2>
+
+{% if logged_in %}
+
+<p>✅ User is logged in</p>
+
+{% else %}
+
+<p>❌ User is not logged in</p>
+
+{% endif %}
+
+<hr>
+
+<h2>4. Loop Rendering</h2>
+
+<ul>
+
+{% for student in students %}
+
+    <li>{{ student }}</li>
+
+{% endfor %}
+
+</ul>
+
+<hr>
+
+<h2>5. Loop + Condition Together</h2>
+
+<ul>
+
+{% for student in students %}
+
+    {% if student == "Alex" %}
+
+        <li>
+            ⭐ Top Student:
+            {{ student | upper }}
+        </li>
+
+    {% else %}
+
+        <li>{{ student }}</li>
+
+    {% endif %}
+
+{% endfor %}
+
+</ul>
+
+<hr>
+
+<h2>6. Safe Filter</h2>
+
+{{ html_message | safe }}
+
+<hr>
+
+<h2>7. Loop Metadata</h2>
+
+<ul>
+
+{% for student in students %}
+
+    <li>
+        Student {{ loop.index }} :
+        {{ student }}
+    </li>
+
+{% endfor %}
+
+</ul>
+
+<hr>
+
+<h2>8. Nested Data Example</h2>
+
+<p>
+    {{ user.name | upper }}
+    is a
+    {{ user.role | lower }}
+</p>
+
+{% endblock %}
