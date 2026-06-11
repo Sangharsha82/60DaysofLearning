@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Introduction Page{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/profile-photo.svg') }}" type="image/svg+xml">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='images/profile-photo.svg') }}" alt="Profile photo" width="40" height="40">
+            <span>My Introduction</span>
+        </a>
+        <nav class="site-nav">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('static', filename='images/profile-photo.svg') }}">View photo</a>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

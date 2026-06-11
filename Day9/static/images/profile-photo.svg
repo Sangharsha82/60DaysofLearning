@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Portrait placeholder</title>
+  <desc id="desc">A simple illustrated profile photo for the introduction page.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2f6f68"/>
+      <stop offset="100%" stop-color="#184b44"/>
+    </linearGradient>
+    <linearGradient id="shirt" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f2e8d8"/>
+      <stop offset="100%" stop-color="#d6c4ad"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" rx="48" fill="#fffaf2"/>
+  <circle cx="400" cy="310" r="180" fill="url(#bg)" opacity="0.15"/>
+  <ellipse cx="400" cy="860" rx="250" ry="95" fill="#e8dfd1"/>
+  <path d="M240 860c22-98 94-165 160-165h0c66 0 138 67 160 165" fill="url(#shirt)"/>
+  <circle cx="400" cy="300" r="138" fill="#f2c9a3"/>
+  <path d="M276 294c10-97 84-169 124-169s114 72 124 169c-42-35-84-50-124-50s-82 15-124 50Z" fill="#1f2328"/>
+  <circle cx="352" cy="310" r="12" fill="#1f2328"/>
+  <circle cx="448" cy="310" r="12" fill="#1f2328"/>
+  <path d="M360 362c22 18 58 18 80 0" fill="none" stroke="#1f2328" stroke-width="10" stroke-linecap="round"/>
+  <rect x="270" y="520" width="260" height="300" rx="130" fill="#2f6f68"/>
+  <path d="M322 550h156" stroke="#fffaf2" stroke-width="18" stroke-linecap="round"/>
+  <path d="M330 608c28-20 112-20 140 0" fill="none" stroke="#fffaf2" stroke-width="14" stroke-linecap="round"/>
+  <path d="M306 750h188" stroke="#184b44" stroke-width="18" stroke-linecap="round" opacity="0.25"/>
+  <text x="400" y="940" text-anchor="middle" fill="#184b44" font-family="Arial, sans-serif" font-size="30" font-weight="700">Your Photo</text>
+</svg>

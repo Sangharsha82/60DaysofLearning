@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}My Introduction Page{% endblock %}
+
+{% block content %}
+<section class="intro-card">
+    <div class="intro-copy">
+        <p class="eyebrow">Introduction</p>
+        <h1>{{ profile.name }}</h1>
+        <h2>{{ profile.role }}</h2>
+        <p class="intro-summary">{{ profile.summary }}</p>
+
+        <ul class="intro-list">
+            {% for item in profile.highlights %}
+            <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+
+        <div class="actions">
+            <a class="button primary" href="{{ url_for('static', filename='css/style.css') }}">Open stylesheet</a>
+            <a class="button secondary" href="{{ url_for('static', filename='js/main.js') }}">Open script</a>
+        </div>
+    </div>
+
+    <figure class="profile-photo-frame">
+        <img src="{{ url_for('static', filename='images/123.jpeg') }}" alt="Portrait photo placeholder">
+    </figure>
+</section>
+
+<section class="path-demo">
+    <h2>Why this layout works</h2>
+    <p>
+        The page keeps the text and photo in separate blocks, and every asset is loaded with
+        <span class="inline-code">url_for('static', filename='...')</span> so paths stay correct even if the static
+        structure changes later.
+    </p>
+</section>
+{% endblock %}

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 520" role="img" aria-labelledby="title desc">
+  <title id="title">Flask asset layout illustration</title>
+  <desc id="desc">An abstract layout showing a header, cards, and file paths.</desc>
+  <rect width="720" height="520" rx="36" fill="#fffaf2"/>
+  <rect x="54" y="58" width="612" height="54" rx="18" fill="#2f6f68" opacity="0.95"/>
+  <rect x="54" y="138" width="270" height="150" rx="24" fill="#dfeeea"/>
+  <rect x="352" y="138" width="314" height="150" rx="24" fill="#f2e8d8"/>
+  <rect x="54" y="314" width="612" height="44" rx="16" fill="#e8dfd1"/>
+  <rect x="54" y="378" width="182" height="84" rx="20" fill="#bfd5d1"/>
+  <rect x="268" y="378" width="182" height="84" rx="20" fill="#efdcc5"/>
+  <rect x="482" y="378" width="184" height="84" rx="20" fill="#d7e4db"/>
+  <circle cx="114" cy="85" r="10" fill="#fffaf2"/>
+  <circle cx="144" cy="85" r="10" fill="#fffaf2" opacity="0.7"/>
+  <circle cx="174" cy="85" r="10" fill="#fffaf2" opacity="0.45"/>
+  <text x="90" y="230" fill="#184b44" font-family="Arial, sans-serif" font-size="28" font-weight="700">styles / scripts / assets</text>
+  <text x="383" y="220" fill="#184b44" font-family="Arial, sans-serif" font-size="22" font-weight="700">url_for('static')</text>
+  <text x="77" y="340" fill="#184b44" font-family="Consolas, monospace" font-size="16">css/style.css</text>
+  <text x="292" y="340" fill="#184b44" font-family="Consolas, monospace" font-size="16">js/main.js</text>
+  <text x="506" y="340" fill="#184b44" font-family="Consolas, monospace" font-size="16">images/*.svg</text>
+</svg>

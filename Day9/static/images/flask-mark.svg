@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-labelledby="title desc">
+  <title id="title">Flask mark</title>
+  <desc id="desc">A simple flask icon for the example application.</desc>
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2f6f68"/>
+      <stop offset="100%" stop-color="#184b44"/>
+    </linearGradient>
+  </defs>
+  <rect width="96" height="96" rx="24" fill="#fffaf2"/>
+  <path d="M40 14h16v6l-4 6v9l16 27c4 7-1 16-9 16H37c-8 0-13-9-9-16l16-27v-9l-4-6z" fill="url(#g)"/>
+  <path d="M35 58h26" stroke="#fffaf2" stroke-width="4" stroke-linecap="round"/>
+</svg>
