@@ -1,0 +1,239 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="layout">
+
+  <!-- TABLE PANEL -->
+  <section class="table-panel">
+    <div class="table-header">
+      <h2>All Items <span id="count-badge" class="badge">0</span></h2>
+      <div class="header-actions">
+        <button type="button" class="btn-primary" id="add-item-btn">Add Item</button>
+        <input type="text" id="search" placeholder="Search…" class="search-input">
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Qty</th>
+            <th>Added</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="items-tbody">
+          <tr id="empty-row">
+            <td colspan="6" class="empty-msg">No items yet. Add one →</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+
+<!-- ITEM FORM DIALOG -->
+<div id="form-overlay" class="overlay hidden">
+  <div class="dialog dialog-form">
+    <div class="dialog-header">
+      <h2 id="form-title">Add Item</h2>
+      <button type="button" class="icon-btn" id="close-form" aria-label="Close form">×</button>
+    </div>
+    <form id="item-form" autocomplete="off">
+      <input type="hidden" id="edit-id">
+
+      <div class="field">
+        <label for="name">Name <span class="req">*</span></label>
+        <input type="text" id="name" placeholder="e.g. Laptop" required>
+      </div>
+
+      <div class="field">
+        <label for="description">Description</label>
+        <textarea id="description" rows="3" placeholder="Optional details…"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="quantity">Quantity</label>
+        <input type="number" id="quantity" min="0" value="0">
+      </div>
+
+      <div class="btn-row">
+        <button type="submit" class="btn-primary" id="submit-btn">Add Item</button>
+        <button type="button" class="btn-ghost" id="cancel-btn">Cancel</button>
+      </div>
+    </form>
+
+    <div id="toast" class="toast"></div>
+  </div>
+</div>
+
+<!-- DELETE CONFIRM DIALOG -->
+<div id="overlay" class="overlay hidden">
+  <div class="dialog">
+    <p>Delete <strong id="delete-name"></strong>?</p>
+    <div class="btn-row">
+      <button class="btn-danger" id="confirm-delete">Delete</button>
+      <button class="btn-ghost" id="cancel-delete">Cancel</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const API = "/api/items";
+  let allItems = [];
+  let pendingDeleteId = null;
+  const formOverlay = document.getElementById("form-overlay");
+
+  /* ── Fetch & render ── */
+  async function loadItems() {
+    const res = await fetch(API);
+    allItems = await res.json();
+    renderTable(allItems);
+  }
+
+  function renderTable(items) {
+    const tbody = document.getElementById("items-tbody");
+    document.getElementById("count-badge").textContent = items.length;
+    if (!items.length) {
+      tbody.innerHTML = `<tr id="empty-row"><td colspan="6" class="empty-msg">No items yet. Add one →</td></tr>`;
+      return;
+    }
+    tbody.innerHTML = items.map(it => `
+      <tr data-id="${it.id}">
+        <td class="id-cell">${it.id}</td>
+        <td class="name-cell">${esc(it.name)}</td>
+        <td class="desc-cell">${esc(it.description || "—")}</td>
+        <td><span class="qty-pill">${it.quantity}</span></td>
+        <td class="date-cell">${fmtDate(it.created_at)}</td>
+        <td class="actions">
+          <button class="btn-edit" onclick="startEdit(${it.id})">Edit</button>
+          <button class="btn-del"  onclick="confirmDelete(${it.id}, '${esc(it.name)}')">Delete</button>
+        </td>
+      </tr>`).join("");
+  }
+
+  document.getElementById("add-item-btn").addEventListener("click", () => {
+    resetForm();
+    openForm();
+  });
+
+  /* ── Search ── */
+  document.getElementById("search").addEventListener("input", e => {
+    const q = e.target.value.toLowerCase();
+    renderTable(q ? allItems.filter(it =>
+      it.name.toLowerCase().includes(q) || (it.description||"").toLowerCase().includes(q)
+    ) : allItems);
+  });
+
+  /* ── Create / Update ── */
+  document.getElementById("item-form").addEventListener("submit", async e => {
+    e.preventDefault();
+    const id   = document.getElementById("edit-id").value;
+    const body = {
+      name:        document.getElementById("name").value.trim(),
+      description: document.getElementById("description").value.trim(),
+      quantity:    parseInt(document.getElementById("quantity").value) || 0
+    };
+    if (!body.name) return;
+
+    const res = id
+      ? await fetch(`${API}/${id}`, { method:"PUT",  headers:{"Content-Type":"application/json"}, body:JSON.stringify(body) })
+      : await fetch(API,            { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(body) });
+
+    if (res.ok) {
+      toast(id ? "Item updated ✓" : "Item added ✓", "ok");
+      closeForm();
+      loadItems();
+    } else {
+      toast("Something went wrong", "err");
+    }
+  });
+
+  /* ── Edit ── */
+  function startEdit(id) {
+    const it = allItems.find(i => i.id === id);
+    if (!it) return;
+    openForm();
+    document.getElementById("edit-id").value        = id;
+    document.getElementById("name").value           = it.name;
+    document.getElementById("description").value    = it.description || "";
+    document.getElementById("quantity").value       = it.quantity;
+    document.getElementById("form-title").textContent = "Edit Item";
+    document.getElementById("submit-btn").textContent = "Save Changes";
+  }
+
+  document.getElementById("cancel-btn").addEventListener("click", closeForm);
+  document.getElementById("close-form").addEventListener("click", closeForm);
+  document.getElementById("form-overlay").addEventListener("click", e => {
+    if (e.target === document.getElementById("form-overlay")) closeForm();
+  });
+
+  function openForm() {
+    formOverlay.classList.remove("hidden");
+    requestAnimationFrame(() => document.getElementById("name").focus());
+  }
+
+  function closeForm() {
+    formOverlay.classList.add("hidden");
+    resetForm();
+  }
+
+  function resetForm() {
+    document.getElementById("item-form").reset();
+    document.getElementById("edit-id").value = "";
+    document.getElementById("form-title").textContent = "Add Item";
+    document.getElementById("submit-btn").textContent = "Add Item";
+  }
+
+  /* ── Delete ── */
+  function confirmDelete(id, name) {
+    pendingDeleteId = id;
+    document.getElementById("delete-name").textContent = name;
+    document.getElementById("overlay").classList.remove("hidden");
+  }
+
+  document.getElementById("confirm-delete").addEventListener("click", async () => {
+    if (!pendingDeleteId) return;
+    const res = await fetch(`${API}/${pendingDeleteId}`, { method:"DELETE" });
+    if (res.ok) { toast("Item deleted", "ok"); loadItems(); }
+    closeDialog();
+  });
+
+  document.getElementById("cancel-delete").addEventListener("click", closeDialog);
+  document.getElementById("overlay").addEventListener("click", e => {
+    if (e.target === document.getElementById("overlay")) closeDialog();
+  });
+
+  function closeDialog() {
+    document.getElementById("overlay").classList.add("hidden");
+    pendingDeleteId = null;
+  }
+
+  /* ── Helpers ── */
+  function esc(s) {
+    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  }
+  function fmtDate(s) {
+    if (!s) return "—";
+    const d = new Date(s);
+    return isNaN(d) ? s : d.toLocaleDateString("en-GB", {day:"2-digit",month:"short",year:"numeric"});
+  }
+
+  let toastTimer;
+  function toast(msg, type) {
+    const el = document.getElementById("toast");
+    el.textContent = msg;
+    el.className = `toast show ${type}`;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.className = "toast", 2400);
+  }
+
+  loadItems();
+</script>
+{% endblock %}
