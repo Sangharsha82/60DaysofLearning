@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="card stack">
+    <div>
+        <h2 class="section-title">Session state</h2>
+        <div class="panel">
+            <span class="label">Stored text</span>
+            <p class="value">{{ stored_text or "No text stored yet." }}</p>
+        </div>
+    </div>
+
+    <div class="panel">
+        <span class="label">Visit count for this session</span>
+        <p class="value">{{ visit_count }}</p>
+    </div>
+
+    <div class="panel">
+        <span class="label">Set session text</span>
+        <form class="form-row" action="{{ url_for('set_text') }}" method="get">
+            <input type="text" name="text" placeholder="Type something to store in the session" aria-label="Session text">
+            <button type="submit">Save in session</button>
+        </form>
+        <p class="hint">Try <code>/set?text=Hello+world</code> or use the form above.</p>
+    </div>
+
+    <div class="form-row">
+        <a class="button-link secondary" href="{{ url_for('clear_session') }}">Clear session</a>
+    </div>
+</section>
+{% endblock %}

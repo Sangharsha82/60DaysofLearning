@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Day11 Session Demo{% endblock %}</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --bg: #f5efe6;
+            --panel: #fffaf2;
+            --text: #1f2937;
+            --muted: #6b7280;
+            --accent: #1f6f78;
+            --accent-soft: #d8f0f2;
+            --border: #e7ddd0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, rgba(31, 111, 120, 0.14), transparent 28%),
+                radial-gradient(circle at top right, rgba(204, 108, 75, 0.12), transparent 24%),
+                var(--bg);
+            min-height: 100vh;
+        }
+
+        header {
+            border-bottom: 1px solid var(--border);
+            background: rgba(255, 250, 242, 0.82);
+            backdrop-filter: blur(10px);
+        }
+
+        .shell {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 1.25rem 1.5rem;
+        }
+
+        .brand {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            align-items: baseline;
+            flex-wrap: wrap;
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        .brand p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        main {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 3rem;
+        }
+
+        .card {
+            background: rgba(255, 250, 242, 0.92);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            box-shadow: 0 18px 40px rgba(31, 41, 55, 0.08);
+            padding: 1.5rem;
+        }
+
+        .section-title {
+            margin: 0 0 0.75rem;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--muted);
+        }
+
+        .hint {
+            color: var(--muted);
+            margin-top: 0.75rem;
+        }
+
+        code {
+            background: var(--accent-soft);
+            color: var(--accent);
+            padding: 0.15rem 0.4rem;
+            border-radius: 999px;
+            font-size: 0.95em;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        input[type="text"] {
+            flex: 1 1 260px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.9rem 1rem;
+            font: inherit;
+            background: white;
+        }
+
+        button,
+        .button-link {
+            border: none;
+            border-radius: 12px;
+            padding: 0.9rem 1.1rem;
+            font: inherit;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            background: var(--accent);
+            color: white;
+        }
+
+        .button-link.secondary {
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid rgba(31, 111, 120, 0.28);
+        }
+
+        .stack {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .panel {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1rem 1.1rem;
+        }
+
+        .label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--muted);
+            margin-bottom: 0.35rem;
+        }
+
+        .value {
+            margin: 0;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="shell brand">
+            <h1>Day11 Flask Session Demo</h1>
+            <p>Structured base and index templates</p>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
