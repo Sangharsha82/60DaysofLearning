@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Welcome</h2>
+
+<p>
+    This application demonstrates:
+</p>
+
+<ul>
+    <li>Flask-SQLAlchemy ORM</li>
+    <li>Database URI Configuration</li>
+    <li>db.Model</li>
+    <li>db.Column</li>
+    <li>String, Integer, Boolean, DateTime</li>
+    <li>db.create_all()</li>
+    <li>Jinja Templates</li>
+</ul>
+
+<a class="btn" href="{{ url_for('add_student') }}">
+    Add Sample Student
+</a>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Add Student</h2>
+
+<form method="post" action="{{ url_for('add_student') }}">
+    <table>
+        <tr>
+            <td><label for="name">Name</label></td>
+            <td><input type="text" id="name" name="name" required></td>
+        </tr>
+        <tr>
+            <td><label for="age">Age</label></td>
+            <td><input type="number" id="age" name="age" required></td>
+        </tr>
+        <tr>
+            <td><label for="is_active">Active</label></td>
+            <td><input type="checkbox" id="is_active" name="is_active" value="1" checked></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><button type="submit">Add Student</button></td>
+        </tr>
+    </table>
+</form>
+
+{% endblock %}
