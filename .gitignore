@@ -1,1 +1,6 @@
 **/webapp/
+**/pychache/
+**/migrations/
+**/instance/
+**/flask_app/
+*.db
