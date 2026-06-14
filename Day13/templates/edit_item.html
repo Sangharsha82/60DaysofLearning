@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Item{% endblock %}
+
+{% block content %}
+<h2>Edit Item</h2>
+<form method="post">
+  <label for="name">Name</label>
+  <input id="name" name="name" value="{{ item.name }}" required>
+  <label for="description">Description</label>
+  <textarea id="description" name="description">{{ item.description }}</textarea>
+  <p>
+    <button class="btn" type="submit">Save</button>
+    <a class="btn" href="{{ url_for('detail', id=item.id) }}">Cancel</a>
+  </p>
+</form>
+{% endblock %}

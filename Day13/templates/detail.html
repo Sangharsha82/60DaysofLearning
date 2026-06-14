@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}{{ item.name }}{% endblock %}
+
+{% block content %}
+<article>
+  <h2>{{ item.name }}</h2>
+  <p class="muted">Created: {{ item.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+  <div class="desc">{{ item.description or 'No description.' }}</div>
+  <p>
+    <a class="btn" href="{{ url_for('edit', id=item.id) }}">Edit</a>
+    <a class="btn" href="{{ url_for('index') }}">Back</a>
+  </p>
+</article>
+{% endblock %}

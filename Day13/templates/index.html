@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Items{% endblock %}
+
+{% block content %}
+<p><a class="btn" href="{{ url_for('add') }}">Add Item</a></p>
+<ul class="items">
+{% for item in items %}
+  <li>
+    <a class="item-link" href="{{ url_for('detail', id=item.id) }}">{{ item.name }}</a>
+    <div class="actions">
+      <a class="btn small" href="{{ url_for('edit', id=item.id) }}">Edit</a>
+      <form method="post" action="{{ url_for('delete', id=item.id) }}" onsubmit="return confirm('Delete this item?');" style="display:inline">
+        <button class="btn small danger" type="submit">Delete</button>
+      </form>
+    </div>
+  </li>
+{% else %}
+  <li>No items yet.</li>
+{% endfor %}
+</ul>
+{% endblock %}
