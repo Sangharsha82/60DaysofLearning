@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} · ErrorLab{% endblock %}
+
+{% block content %}
+<div class="error-page">
+  <div class="error-banner {% if status_code >= 500 %}banner-5xx{% else %}banner-4xx{% endif %}">
+    <span class="error-code-big">{{ status_code }}</span>
+  </div>
+
+  <div class="error-body">
+    <h1 class="error-title">{{ title }}</h1>
+    <p class="error-message">{{ message }}</p>
+
+    <div class="error-actions">
+      <a href="/" class="btn-primary">← Back to Demo Home</a>
+      <a href="javascript:history.back()" class="btn-secondary">Go Back</a>
+    </div>
+
+    <div class="error-meta">
+      <span>Status: <code>{{ status_code }}</code></span>
+      <span>Path: <code>{{ request.path }}</code></span>
+      <span>Method: <code>{{ request.method }}</code></span>
+    </div>
+  </div>
+</div>
+{% endblock %}

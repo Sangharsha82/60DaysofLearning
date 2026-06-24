@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTTP Methods Demo</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>Task API (HTTP Methods)</h1>
+    <p>This app uses a clean Flask structure and demonstrates proper HTTP method usage.</p>
+
+    <section>
+      <h2>Endpoints</h2>
+      <ul>
+        <li><strong>GET</strong> /api/tasks - List all tasks</li>
+        <li><strong>GET</strong> /api/tasks/&lt;id&gt; - Get one task</li>
+        <li><strong>POST</strong> /api/tasks - Create a task</li>
+        <li><strong>PUT</strong> /api/tasks/&lt;id&gt; - Update a task</li>
+        <li><strong>DELETE</strong> /api/tasks/&lt;id&gt; - Delete a task</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Quick test with curl</h2>
+      <pre>curl -X POST http://127.0.0.1:5000/api/tasks -H "Content-Type: application/json" -d '{"title":"Learn HTTP"}'</pre>
+    </section>
+  </main>
+</body>
+</html>

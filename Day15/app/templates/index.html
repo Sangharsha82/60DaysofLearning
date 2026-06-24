@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block title %}ErrorLab — Flask Error Handling{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <h1>Flask Error Handling</h1>
+  <p class="hero-sub">A complete demo of HTTP error codes, custom exceptions, and error handler patterns.</p>
+</section>
+
+<section class="card-grid">
+
+  <div class="error-group">
+    <h2 class="group-label">4xx — Client Errors</h2>
+
+    <a href="/demo/400" class="error-card err-4xx">
+      <span class="code">400</span>
+      <span class="name">Bad Request</span>
+      <span class="desc">Malformed or unreadable request body</span>
+    </a>
+
+    <a href="/demo/401" class="error-card err-4xx">
+      <span class="code">401</span>
+      <span class="name">Unauthorized</span>
+      <span class="desc">Authentication required</span>
+    </a>
+
+    <a href="/demo/403" class="error-card err-4xx">
+      <span class="code">403</span>
+      <span class="name">Forbidden</span>
+      <span class="desc">Insufficient permissions</span>
+    </a>
+
+    <a href="/demo/404" class="error-card err-4xx">
+      <span class="code">404</span>
+      <span class="name">Not Found</span>
+      <span class="desc">Resource does not exist</span>
+    </a>
+
+    <a href="/demo/abort/405" class="error-card err-4xx">
+      <span class="code">405</span>
+      <span class="name">Method Not Allowed</span>
+      <span class="desc">Wrong HTTP verb</span>
+    </a>
+
+    <a href="/demo/422" class="error-card err-4xx">
+      <span class="code">422</span>
+      <span class="name">Validation Error</span>
+      <span class="desc">Input validation failure</span>
+    </a>
+
+    <a href="/demo/429" class="error-card err-4xx">
+      <span class="code">429</span>
+      <span class="name">Too Many Requests</span>
+      <span class="desc">Rate limit exceeded</span>
+    </a>
+  </div>
+
+  <div class="error-group">
+    <h2 class="group-label">5xx — Server Errors</h2>
+
+    <a href="/demo/500" class="error-card err-5xx">
+      <span class="code">500</span>
+      <span class="name">Internal Server Error</span>
+      <span class="desc">Unhandled exception on the server</span>
+    </a>
+
+    <a href="/demo/503" class="error-card err-5xx">
+      <span class="code">503</span>
+      <span class="name">Service Unavailable</span>
+      <span class="desc">Downstream dependency down</span>
+    </a>
+  </div>
+
+  <div class="error-group">
+    <h2 class="group-label">JSON API — Accept: application/json</h2>
+
+    <a href="/api/demo/404" class="error-card err-api">
+      <span class="code">404</span>
+      <span class="name">API Not Found</span>
+      <span class="desc">Returns JSON instead of HTML</span>
+    </a>
+  </div>
+
+</section>
+
+<section class="code-peek">
+  <h2>How it works</h2>
+  <pre><code><span class="c"># app/exceptions.py</span>
+<span class="kw">class</span> NotFoundError(AppError):
+    status_code = <span class="num">404</span>
+    message = <span class="str">"The requested resource was not found."</span>
+
+<span class="c"># app/errors/__init__.py</span>
+<span class="kw">@app</span>.errorhandler(AppError)
+<span class="kw">def</span> handle_app_error(error):
+    <span class="kw">if</span> wants_json(request):
+        <span class="kw">return</span> jsonify(error.to_dict()), error.status_code
+    <span class="kw">return</span> render_template(<span class="str">"error.html"</span>, ...), error.status_code</code></pre>
+</section>
+{% endblock %}

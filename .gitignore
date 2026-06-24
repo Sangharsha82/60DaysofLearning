@@ -4,3 +4,5 @@
 **/instance/
 **/flask_app/
 *.db
+/Day17/
+/Day18/
